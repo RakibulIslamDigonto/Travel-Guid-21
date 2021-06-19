@@ -1,0 +1,18 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block content %}
+<div class="offset-4 col-sm-4 offset-4">
+    <div> <br> </div>
+    <h4 class="text-center alert alert-info ">Login Form</h4>
+    <form action="" method = 'POST'>
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit" class="offset-4 col-sm-4 offset-4 btn btn-success margin-bottom">Submit</button>
+    <br>
+    </form>
+    <div>
+    <br>
+    </div>
+</div>
+
+{% endblock content %}

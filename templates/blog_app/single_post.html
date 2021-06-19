@@ -1,0 +1,119 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block content %}
+    <!-- Post single page -->
+<section class="py-5">
+      <div class="container text-center">
+        <p class="h6 mb-0 text-uppercase text-primary">{{ post.country }}</p>
+        <h1>{{ post.title }}</h1>
+        <p class="mb-3">{{ post.short_discription }}</p>
+
+      </div><img class="w-100 py-5" src="{{ post.thumbnail.url }}" alt="">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mb-5 mb-lg-0">
+            <p class="lead first-letter-styled line-height-lg">{{ post.discription | safe }}</p>
+
+      <!-- comment form -->
+        <h3 class="h4 mb-4">Leave a comment</h3>
+        <form action="." method="post" id="comment-form" class="comment-form" method="post">
+    
+          <div class="messages"></div>
+          
+          <div class="row">
+
+            <div class="column col-md-6">
+              <!-- Name input -->
+              <div class="form-group">
+                <input type="text" class="form-control" name="name" id="InputWeb" placeholder="Your Name" required="required">
+              </div>
+            </div>
+
+            <div class="column col-md-12">
+              <!-- Comment textarea -->
+              <div class="form-group">
+                <textarea name="body" id="InputComment" class="form-control" rows="4" placeholder="Your comment here..." required="required"></textarea>
+              </div>
+            </div>
+
+          </div>
+
+          {% csrf_token %}
+          
+          <div class="form-group col-lg-12">
+            <button class="btn btn-dark" type="submit">Submit your comment</button>
+          </div> 
+          <!-- Submit Button -->
+
+        </form>
+
+
+
+          <h3 class="h4 mb-4 d-flex align-items-center"><span>Comments</span><span class="text-small ml-3 text-gray">{{ post.comm_count }} Comments</span></h3>
+            <ul class="list-unstyled comments">
+              <li>
+                {% for comment in comments %}
+                <div class="d-flex mb-4">
+                  <div class="pl-2">
+                     <p class="small mb-0 text-primary">{{ comment.create_time | timesince }}</p> 
+                    <h5>{{ comment.name }}</h5>
+                    <p class="text-muted text-small mb-2">{{ comment.body }}</p>
+                  </div>
+                </div>
+                {% endfor %}
+              </li>
+            </ul>
+          </div>
+          
+          <div class="col-lg-4">
+            <!-- About me widget -->
+            <div class="mb-5 text-center">
+            <img class="mb-3 rounded-circle img-thumbnail shadow-sm" src="{% static 'img/author.jpg' %}" alt="" width="110">
+              <a href=""><h3 class="h4">About {{ user.username }}</h3></a>
+              <p class="text-small text-muted px-sm-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p><img class="d-block mx-auto mb-3" src="img/signature.png" alt="" width="60">
+              <ul class="list-inline text-small mb-0">
+                <li class="list-inline-item"><a class="reset-anchor" href="#"><i class="fab fa-facebook-f"></i></a></li>
+                <li class="list-inline-item"><a class="reset-anchor" href="#"><i class="fab fa-twitter"></i></a></li>
+                <li class="list-inline-item"><a class="reset-anchor" href="#"><i class="fab fa-instagram"></i></a></li>
+                <li class="list-inline-item"><a class="reset-anchor" href="#"><i class="fab fa-linkedin"></i></a></li>
+                <li class="list-inline-item"><a class="reset-anchor" href="#"><i class="fab fa-youtube"></i></a></li>
+                <li class="list-inline-item"><a class="reset-anchor" href="#"><i class="fab fa-vimeo-v"></i></a></li>
+              </ul>
+            </div>
+            <!-- Categories widget -->
+          <div class="mb-5 text-center">
+            <a class="category reset-anchor bg-cover bg-center mb-2" href="#" style="background: url({% static 'img/category-1.jpg' %})">
+              <p class="category-title text-uppercase small">Lifestyle</p>
+            </a>
+                <a class="category reset-anchor bg-cover bg-center mb-2" href="#" style="background: url({% static 'img/category-2.jpg' %})">
+                <p class="category-title text-uppercase small">Travel</p></a><a class="category reset-anchor bg-cover bg-center" href="#" style="background: url({% static 'img/category-3.jpg' %})">
+                <p class="category-title text-uppercase small">Vacation</p></a>
+          </div>
+           
+            <!-- Latest posts widget -->
+            <div class="mb-5">
+              <h3 class="h5">Latest posts</h3>
+              <p class="text-small text-muted mb-4">Lorem ipsum dolor sit, consectetur adipisicing elit, sed do eiusmod.</p>
+              <ul class="list-unstyled">
+              
+                {% for posts in latest_post %}
+                  <li class="media mb-1">
+                    <a href="{{ posts.get_absolute_url }}"><img src="{{ posts.thumbnail.url }}" alt="" width="50"></a>
+                    <div class="media-body ml-3">
+                      {% comment %} <p class="small text-primary text-uppercase mb-0">5 Aug 2018</p> {% endcomment %}
+                      <h6 class="mb-1"><a class="reset-anchor" href="{{ posts.get_absolute_url }}">{{ posts.title }}</a></h6>
+                      <p class="small text-muted">{{ posts.short_discription }}</p>
+                    </div>
+                  </li>
+                {% endfor %}
+                
+
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+{% endblock content %}

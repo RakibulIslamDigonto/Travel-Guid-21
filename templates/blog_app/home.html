@@ -1,0 +1,27 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block content %}
+    <!-- Destinations -->
+    <section class="pt-5">
+    <div class="container">
+        <h1>Featured Destinations</h1>
+        <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis aliquid</p>
+    </div>
+    <div class="destinations-slider owl-carousel owl-theme nav-center-custom owl-padding">
+
+        {% for blog in blogs %}
+
+        <a class="destination d-flex align-items-end bg-center bg-cover" href="{{ blog.get_absolute_url }}" style="background: url({{ blog.thumbnail.url }})">
+            
+        <div class="destination-inner w-100 text-center text-white index-forward has-transition">
+        <p class="small text-uppercase mb-0">{{ blog.country }}</p>
+        <h2 class="h3 mb-4">{{ blog.title }}</h2>
+        <div class="btn btn-primary btn-block destination-btn text-white">{{ blog.short_discription }}
+        </div>
+        </div></a>
+            
+            {% endfor %}
+        </div>
+    </section>
+
+{% endblock content %}
